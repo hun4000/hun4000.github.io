@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geliştirici Sayfası - hun4000</title>
+    <title>hun4000 - Developer Page</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -13,6 +13,24 @@
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
+            background-color: #f9f9f9;
+        }
+        .lang-switch {
+            margin-bottom: 20px;
+        }
+        .lang-btn {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 5px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        .lang-btn.active {
+            background-color: #0366d6;
+            color: white;
+            border-color: #0366d6;
         }
         h1 { color: #2c3e50; margin-bottom: 10px; }
         p { color: #666; margin-bottom: 30px; }
@@ -36,22 +54,69 @@
         .btn-game2 { background-color: #d73a49; }
         .btn-game2:hover { background-color: #cb2431; }
         footer { margin-top: 50px; font-size: 0.9em; color: #888; }
+        
+        /* Dil yönetimi için sınıflar */
+        .lang-en { display: none; }
     </style>
 </head>
 <body>
 
-    <h1>hun4000 - Uygulama Geliştirici Sayfası</h1>
-    <p>Uygulamalarım ve resmi bağlantılar için bilgilendirme sayfasıdır.</p>
+    <!-- Dil Değiştirme Butonları -->
+    <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLanguage('tr')">TR</button>
+        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+    </div>
 
-    <div class="links">
-        <a href="tapascent_privacy.html" class="btn">Tapascent Gizlilik Politikası</a>
-        <a href="card-dungeon-privacy.html" class="btn btn-game2">Card Dungeon: Idle Souls Privacy Policy</a>
-        <a href="app-ads.txt" class="btn">app-ads.txt</a>
+    <!-- TÜRKÇE İÇERİK -->
+    <div id="content-tr">
+        <h1>hun4000 - Uygulama Geliştirici Sayfası</h1>
+        <p>Uygulamalarım ve resmi bağlantılar için bilgilendirme sayfasıdır.</p>
+
+        <div class="links">
+            <a href="tapascent_privacy.html" class="btn">Tapascent Gizlilik Politikası</a>
+            <a href="card-dungeon-privacy.html" class="btn btn-game2">Card Dungeon: Idle Souls Gizlilik Politikası</a>
+            <a href="app-ads.txt" class="btn">app-ads.txt</a>
+        </div>
+    </div>
+
+    <!-- İNGİLİZCE İÇERİK -->
+    <div id="content-en" class="lang-en">
+        <h1>hun4000 - App Developer Page</h1>
+        <p>Information page for my applications and official links.</p>
+
+        <div class="links">
+            <a href="tapascent_privacy.html" class="btn">Tapascent Privacy Policy</a>
+            <a href="card-dungeon-privacy.html" class="btn btn-game2">Card Dungeon: Idle Souls Privacy Policy</a>
+            <a href="app-ads.txt" class="btn">app-ads.txt</a>
+        </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 hun4000. Tüm hakları saklıdır.</p>
+        <p>&copy; 2026 hun4000. <span class="lang-tr">Tüm hakları saklıdır.</span><span class="lang-en" style="display:none;">All rights reserved.</span></p>
     </footer>
+
+    <script>
+        function setLanguage(lang) {
+            const trElements = document.querySelectorAll('#content-tr, footer .lang-tr');
+            const enElements = document.querySelectorAll('#content-en, footer .lang-en');
+            const buttons = document.querySelectorAll('.lang-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (lang === 'en') {
+                trElements.forEach(el => el.style.display = 'none');
+                enElements.forEach(el => el.style.display = 'inline');
+                // Blok elemanlar için özel düzeltme
+                document.getElementById('content-en').style.display = 'block';
+                document.querySelectorAll('.lang-btn')[1].classList.add('active');
+            } else {
+                enElements.forEach(el => el.style.display = 'none');
+                document.getElementById('content-en').style.display = 'none';
+                document.getElementById('content-tr').style.display = 'block';
+                document.querySelectorAll('.lang-btn')[0].classList.add('active');
+            }
+        }
+    </script>
 
 </body>
 </html>
